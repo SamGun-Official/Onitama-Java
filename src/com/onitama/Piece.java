@@ -35,7 +35,9 @@ public class Piece {
 
     public String getStringColor() {
         String col = "Blue";
-        if(color == Board.red) col = "Red";
+        if (color == Board.red) {
+            col = "Red";
+        }
         return col;
     }
 }

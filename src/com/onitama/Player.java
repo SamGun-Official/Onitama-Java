@@ -13,7 +13,6 @@ public class Player {
 
     public Player(Card[] moves, int playerColor, int difficulty) {
         this(moves, playerColor);
-
         isComputer = true;
         this.difficulty = difficulty;
     }
@@ -26,7 +25,7 @@ public class Player {
     }
 
     public Player(Player p) {
-        cards = Arrays.copyOf(p.getCards(),2);
+        cards = Arrays.copyOf(p.getCards(), 2);
         board = p.getBoard();
         color = p.getColor();
         isComputer = p.isComputer();
@@ -46,10 +45,11 @@ public class Player {
     }
 
     public void setBoard(Board b) {
-        if(board == null)
+        if (board == null) {
             board = b;
-        else
+        } else {
             board = new Board(b);
+        }
     }
 
     public Board getBoard() {
@@ -60,14 +60,15 @@ public class Player {
         cards[index] = new Card(card);
     }
 
-    public Coordinate [] getMove() {
-        if(isComputer)
+    public Coordinate[] getMove() {
+        if (isComputer) {
             return getMax();
+        }
         return null;
     }
 
-    public Coordinate [] getMax() {
-        return new Coordinate[] {new Coordinate(0,0), new Coordinate(0,0)};
+    public Coordinate[] getMax() {
+        return new Coordinate[]{ new Coordinate(0, 0), new Coordinate(0, 0) };
     }
 
     public Card[] getCards() {
@@ -79,12 +80,14 @@ public class Player {
     }
 
     public String toString() {
-        return getColorString()+"\nCards: "+cards[0]+", "+cards[1]+"\nIs Computer: "+isComputer+"\nDifficulty: "+difficulty;
+        return getColorString() + "\nCards: " + cards[0] + ", " + cards[1] + "\nIs Computer: " + isComputer + "\nDifficulty: " + difficulty;
     }
 
     public String getColorString() {
         String col = "Blue";
-        if(color == Board.red) col = "Red";
+        if (color == Board.red) {
+            col = "Red";
+        }
         return col;
     }
 }

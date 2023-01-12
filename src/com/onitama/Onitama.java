@@ -4,18 +4,14 @@ public class Onitama {
     private static Onitama game;
 
     private GUI gui;
-
     private Player p1, p2;
-
     private Board board;
 
-    private static int p1Difficulty=Player.EASY, p2Difficulty=Player.EASY;
-
+    private static int p1Difficulty = Player.EASY, p2Difficulty = Player.EASY;
     private static int playerColor = Board.blue;
-
     private static int playerCount = 1;
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
         Card.init();
         Deck.init();
         game = new Onitama();
@@ -39,34 +35,36 @@ public class Onitama {
 
     public Onitama() {
         Card cards[] = Deck.draw();
-        p1 = new Player(new Card[] {cards[0],cards[3]}, Board.red,  Player.EASY);
-        p2 = new Player(new Card[] {cards[1],cards[4]}, Board.blue);
-
+        p1 = new Player(new Card[]{cards[0], cards[3]}, Board.red, Player.EASY);
+        p2 = new Player(new Card[]{cards[1], cards[4]}, Board.blue);
         board = null;
 
-        if(cards[2].getColor() == Board.red)
+        if (cards[2].getColor() == Board.red) {
             board = new Board(cards[2], p1, p2);
-        else
+        } else {
             board = new Board(cards[2], p2, p1);
+        }
 
         gui = new GUI(cards, board);
-
         p1.setBoard(board);
         p2.setBoard(board);
+
+        System.out.println("Player 1: " + p1.getDifficulty() + " - Player 2: " + p2.getDifficulty());
     }
 
     public void run() {
-        if(board.isComputerTurn())
+        if (board.isComputerTurn()) {
             gui.compTurn();
+        }
     }
 
     private void updateDifficulty() {
-        switch(playerCount) {
+        switch (playerCount) {
             case 2:
                 System.out.println("No change");
                 break;
             case 1:
-                if(playerColor == Board.red) {
+                if (playerColor == Board.red) {
                     p2.setDifficulty(p2Difficulty);
                 } else {
                     p1.setDifficulty(p1Difficulty);
@@ -81,31 +79,34 @@ public class Onitama {
 
     public void resetGame() {
         Card cards[] = Deck.draw();
-        switch(playerCount) {
+
+        switch (playerCount) {
             case 2:
-                p1 = new Player(new Card[] {cards[0],cards[3]}, Board.red);
-                p2 = new Player(new Card[] {cards[1],cards[4]}, Board.blue);
+                p1 = new Player(new Card[]{cards[0], cards[3]}, Board.red);
+                p2 = new Player(new Card[]{cards[1], cards[4]}, Board.blue);
                 break;
             case 1:
-                if(playerColor == Board.red) {
-                    p1 = new Player(new Card[] {cards[0],cards[3]}, Board.red);
-                    p2 = new Player(new Card[] {cards[1],cards[4]}, Board.blue, p2Difficulty);
+                if (playerColor == Board.red) {
+                    p1 = new Player(new Card[]{cards[0], cards[3]}, Board.red);
+                    p2 = new Player(new Card[]{cards[1], cards[4]}, Board.blue, p2Difficulty);
                 } else {
-                    p1 = new Player(new Card[] {cards[0],cards[3]}, Board.red, p1Difficulty);
-                    p2 = new Player(new Card[] {cards[1],cards[4]}, Board.blue);
+                    p1 = new Player(new Card[]{cards[0], cards[3]}, Board.red, p1Difficulty);
+                    p2 = new Player(new Card[]{cards[1], cards[4]}, Board.blue);
                 }
                 break;
             case 0:
-                p1 = new Player(new Card[] {cards[0],cards[3]}, Board.red,  p1Difficulty);
-                p2 = new Player(new Card[] {cards[1],cards[4]}, Board.blue, p2Difficulty);
+                p1 = new Player(new Card[]{cards[0], cards[3]}, Board.red, p1Difficulty);
+                p2 = new Player(new Card[]{cards[1], cards[4]}, Board.blue, p2Difficulty);
                 break;
         }
+
         board = null;
 
-        if(cards[2].getColor() == Board.red)
+        if (cards[2].getColor() == Board.red) {
             board = new Board(cards[2], p1, p2);
-        else
+        } else {
             board = new Board(cards[2], p2, p1);
+        }
 
         p1.setBoard(board);
         p2.setBoard(board);
